@@ -1,0 +1,226 @@
+<!DOCTYPE HTML>
+<HEAD>
+<TITLE>
+	Angular JS Basic Task
+</TITLE>
+<style>
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 15px;
+    text-align: center;    
+}
+input.ng-invalid {
+    background-color:pink;
+}
+input.ng-valid {
+    background-color:lightgreen;
+}
+
+table tr:nth-child(odd) {
+  background-color: #f1f1f1;
+}
+table tr:nth-child(even) {
+  background-color: #ffffff;
+}
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    
+}
+.tab button {
+
+    background-color: inherit;
+    float: center;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px ;
+    transition: 0.3s;
+}
+.tab button:hover {
+    background-color: #ddd;
+}
+.tab button.active {
+    background-color: #ccc;
+}
+
+</style>
+
+</HEAD>
+<SCRIPT SRC = "https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular.min.js"></SCRIPT>
+<BODY ng-app="myapp" ng-controller="stuCtrl" >
+	<CENTER><table  >
+		
+		<tr style="background-color: rgb(74,183,246)">
+			<th rowspan="2">Index</th>
+			<th rowspan="2"><button style="width:100%;height:40%;" ng-click="orderby('name')" >Name</button></th>
+			<th rowspan="2"><button ng-click="orderby('age')" >Age</button></th>
+			<th rowspan="2"><button ng-click="orderby('gender')" >Gender</button></th>
+			<th COLSPAN="2">Marks	</th>
+			<th rowspan="2">Average Marks</th>
+			<th rowspan="2">Total Marks</th>
+			<th rowspan="2"></th>
+		</tr>
+		<tr style="background-color:rgb(74,183,246)">
+			<th><button ng-click="orderby('hindi')" >Hindi</button></th>
+			<th><button ng-click="orderby('english')" >English</button></th>
+		</tr>
+
+		
+		<tr ng-repeat="x in student | orderBy:orderbyuser:reverse">
+			<th>{{ $index + 1 }}</th>
+			<th>{{x.name}}</th>
+			<th>{{x.age}}</th>
+			<th>{{x.gender}}</th>
+			<th><input type="number" style="text-align: center;" ng-model=x.hindi value={{x.hindi}}  	min="0" max="100" required></th>
+			<th><input type="number" style="text-align: center;" ng-model=x.english value={{x.english}}  min="0" max="100" required></th>
+			<th>{{(x.hindi+x.english)/2}}</th>
+			<th>{{x.hindi+x.english}}</th>
+			<th><a href="" ng-click="removestu($index)">Remove</a></th>
+			
+		</tr>
+		
+	</table>
+	<br>
+	<br>
+	<div style="border:1px solid black;">
+			<div class="tab">
+				<button class="tablinks" onclick="window.scrollBy(0, 500);" ng-click="maxsub('hindi')"  >Display Name of student who scored highest marks in<b><ul> Hindi</ul></b></button>
+				<button class="tablinks" onclick="window.scrollBy(0, 500);" ng-click="maxsub('english')" >Display Name of student who scored highest marks in<b><ul> English</ul></b></button>
+				<button class="tablinks" onclick="window.scrollBy(0, 500);" ng-click="maxtotal()" >Display Name of student who scored highest marks in<b><ul> both subjects</ul></b></button>
+			</div>
+		   	<div ng-show="show">
+				<span ng-show="H"><h2>Highest in Hindi</h2></span>
+				<span ng-show="E"><h2>Highest in English</h2></span>
+				<span ng-show="T"><h2>Highest in both subjects</h2></span>
+				<table>
+					<tr style="background-color: rgb(74,183,246)">
+						<th rowspan="2">Index</th>
+						<th rowspan="2" ng-click="orderby('name')" >Name</th>
+						<th rowspan="2" ng-click="orderby('age')" >Age</th>
+						<th rowspan="2" ng-click="orderby('gender')" >Gender</th>
+						<th COLSPAN="2">Marks	</th>
+						<th rowspan="2">Average Marks</th>
+						<th rowspan="2">Total Marks</th>
+					</tr>
+					<tr style="background-color:rgb(74,183,246)">
+						<th ng-click="orderby('hindi')" >Hindi</th>
+						<th ng-click="orderby('english')" >English</th>
+					</tr>
+						<th>{{ $index + 1 }}</th>
+						<th>{{student[maxi].name}}</th>
+						<th>{{student[maxi].age}}</th>
+						<th>{{student[maxi].gender}}</th>
+						<th>{{student[maxi].hindi}}</th>
+						<th>{{student[maxi].english}}</th>
+						<th>{{(student[maxi].hindi+student[maxi].english)/2}}</th>
+						<th>{{student[maxi].hindi+student[maxi].english}}</th>						
+					</tr>
+				</table>
+				<br>
+		   	</div>
+	</div>
+   
+	</CENTER>
+
+<script>
+
+var app = angular.module('myapp',[]);
+app.controller('stuCtrl',function($scope)
+{
+	$scope.student = [{name:'Shrirang Pinjarkar',age:'15',gender:'M',hindi:Math.floor((Math.random() * 100) + 1),english:Math.floor((Math.random() * 100) + 1)},
+					 {name:'Manjiri Bapat',age:'16',gender:'F',hindi:Math.floor((Math.random() * 100) + 1),english:Math.floor((Math.random() * 100) + 1)},
+					 {name:'Anurag Kulkarni',age:'16',gender:'M',hindi:Math.floor((Math.random() * 100) + 1),english:Math.floor((Math.random() * 100) + 1)},
+					 {name:'Abhijit Joshi',age:'15',gender:'M',hindi:Math.floor((Math.random() * 100) + 1),english:Math.floor((Math.random() * 100) + 1)},
+					 {name:'Shrikant Pande',age:'15',gender:'M',hindi:Math.floor((Math.random() * 100) + 1),english:Math.floor((Math.random() * 100) + 1)},
+					 {name:'Radhika Deshpande',age:'15',gender:'F',hindi:Math.floor((Math.random() * 100) + 1),english:Math.floor((Math.random() * 100) + 1)},
+					 {name:'Arpita Kale',age:'15',gender:'F',hindi:Math.floor((Math.random() * 100) + 1),english:Math.floor((Math.random() * 100) + 1)},
+					 {name:'Vasu Valke',age:'16',gender:'M',hindi:Math.floor((Math.random() * 100) + 1),english:Math.floor((Math.random() * 100) + 1)},
+					 {name:'Shivani Waghmare',age:'15',gender:'F',hindi:Math.floor((Math.random() * 100) + 1),english:Math.floor((Math.random() * 100) + 1)},
+					 {name:'Mahesh Bondre',age:'16',gender:'M',hindi:Math.floor((Math.random() * 100) + 1),english:Math.floor((Math.random() * 100) + 1)}];
+	$scope.show = false;
+	$scope.H = false;
+	$scope.E = false;
+	$scope.T = false;
+	$scope.orderby = function(x){ if(x=='hindi' || x=='english') 
+									$scope.reverse=true;
+								  else 
+								  	$scope.reverse = false;
+								$scope.orderbyuser = x; 
+			
+								};
+
+	$scope.removestu = function(x){
+							$scope.student.splice(x, 1);
+							/*if($scope.H==true && $scope.show==true)
+								maxsub('hindi');
+							else if($scope.E==true && $scope.show==true)
+								maxsub('english');
+							else if($scope.T==true && $scope.show==true)
+								maxtotal();
+							*/
+							console.log($scope.student);
+							};
+
+    $scope.maxsub = function(sub){
+    				if(sub=='hindi')
+    					{
+    						$scope.maxi = Math.max.apply(Math,$scope.student.map(function(item){return item.hindi;}));
+    						for(var i=0;i<$scope.student.length;i++)
+    						{
+    							if($scope.maxi==$scope.student[i].hindi)
+    								{
+    									$scope.maxi = i;
+    									break;
+    								}
+    						} 
+							$scope.E = false;
+							$scope.T = false;
+							$scope.H = true;
+    					}
+    				else
+    					{
+    						$scope.maxi = Math.max.apply(Math,$scope.student.map(function(item){return item.english;}));
+    						for(var i=0;i<$scope.student.length;i++)
+    						{
+    							if($scope.maxi==$scope.student[i].english)
+    								{
+    									$scope.maxi = i;
+    									break;
+    								}
+    						} 
+    						$scope.H = false;
+    						$scope.T = false;
+    						$scope.E = true;
+    					}
+    				$scope.show = true;
+    				console.log($scope.student);					
+    				};
+
+    $scope.maxtotal = function(){
+    				var total = []
+    				for(var i=0;i<$scope.student.length;i++)
+    				{
+    					total[i] = $scope.student[i].hindi+$scope.student[i].english;
+    				}
+
+    				$scope.maxi = total.indexOf(Math.max.apply(Math,total));
+    				$scope.show = true;
+    				$scope.H = false;
+    				$scope.T = true;
+    				$scope.E = false;
+
+
+    				console.log($scope.student);
+    				};
+    
+
+}
+);
+</script>
+</BODY>
+</HTML>
