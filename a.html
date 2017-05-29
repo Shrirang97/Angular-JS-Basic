@@ -154,18 +154,6 @@ app.controller('stuCtrl',function($scope)
 			
 								};
 
-	$scope.removestu = function(x){
-							$scope.student.splice(x, 1);
-							/*if($scope.H==true && $scope.show==true)
-								maxsub('hindi');
-							else if($scope.E==true && $scope.show==true)
-								maxsub('english');
-							else if($scope.T==true && $scope.show==true)
-								maxtotal();
-							*/
-							console.log($scope.student);
-							};
-
     $scope.maxsub = function(sub){
     				if(sub=='hindi')
     					{
@@ -217,7 +205,18 @@ app.controller('stuCtrl',function($scope)
 
     				console.log($scope.student);
     				};
-    
+    $scope.removestu = function(x){
+							$scope.student.splice(x, 1);
+							/*if($scope.H==true && $scope.show==true)
+								maxsub('hindi');
+							else if($scope.E==true && $scope.show==true)
+								maxsub('english');
+							else if($scope.T==true && $scope.show==true)
+								maxtotal();
+							*/
+							$scope.show = false;
+							console.log($scope.student);
+							};
 
 }
 );
