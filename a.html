@@ -207,14 +207,14 @@ app.controller('stuCtrl',function($scope)
     				};
     $scope.removestu = function(x){
 							$scope.student.splice(x, 1);
-							/*if($scope.H==true && $scope.show==true)
-								maxsub('hindi');
+							if($scope.H==true && $scope.show==true)
+								$scope.maxsub('hindi');
 							else if($scope.E==true && $scope.show==true)
-								maxsub('english');
+								$scope.maxsub('english');
 							else if($scope.T==true && $scope.show==true)
-								maxtotal();
-							*/
-							$scope.show = false;
+								$scope.maxtotal();
+							
+							//$scope.show = false;
 							console.log($scope.student);
 							};
 
